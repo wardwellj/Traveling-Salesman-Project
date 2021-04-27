@@ -1,0 +1,106 @@
+﻿<Window x:Class="Traveling_Salesman_Problem.MainWindow" Name="PrimaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Traveling_Salesman_Problem"
+        xmlns:viewModel="clr-namespace:Traveling_Salesman_Problem.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="800" Width="1120"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Icon="./Images/salesman-in-a-circle.ico">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+
+    <Border Background="#252735"
+            CornerRadius="30">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="900"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Name="Dock" Grid.Column="1" Height="80" Width="900" Background="Transparent" MouseLeftButtonDown="Dock_MouseLeftButtonDown"/>
+            <DockPanel Name="Dock2" Height="80" Width="220" Background="Transparent" MouseLeftButtonDown="Dock_MouseLeftButtonDown"/>
+
+            <Border Height="55" 
+                    Width="55" 
+                    HorizontalAlignment="Left" 
+                    Margin="40,0,0,0"
+                    MouseLeftButtonDown="Dock_MouseLeftButtonDown">
+                <Border.Background>
+                    <SolidColorBrush Color="AliceBlue"/>
+                </Border.Background>
+
+                <Border.Clip>
+                    <RectangleGeometry RadiusX="10" 
+                                       RadiusY="10"
+                                       Rect="0,0,55,55"/>
+                </Border.Clip>
+                <Image Source="/Images/salesman-in-a-circle.jpg" />
+            </Border>
+
+            <Border Grid.Column="2"
+                    Height="55" 
+                    Width="55" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,0,40,0">
+                <Border.Background>
+                    <SolidColorBrush Color="AliceBlue"/>
+                </Border.Background>
+
+                <Border.Clip>
+                    <RectangleGeometry RadiusX="10" 
+                                       RadiusY="10"
+                                       Rect="0,0,55,55"/>
+                </Border.Clip>
+
+                <Button         Name="CloseButton"
+                                Height="55"
+                                Width="55"
+                                Visibility="Visible"
+                                Click="CloseButton_Click">
+                    <Image Source ="/Images/close.png"/>
+                </Button>
+            </Border>
+
+            <TextBlock Text="Traveling Salesman" Grid.Column="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="250,0,0,0"
+                Foreground="White"
+                FontSize="24"
+                MouseLeftButtonDown="Dock_MouseLeftButtonDown"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton Name="Map" Content="Map" IsChecked="True" Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MapViewCmd}"/>
+
+                <RadioButton Name="CityInfo" Content="City Info" Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding CityInfoViewCmd}"/>
+
+                <RadioButton Name="GenInfo" Content="Generation Info" Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding GenInfoViewCmd}"/>
+
+                <RadioButton Name="ChildMap" Content="Map of Child" Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ChildMapViewCmd}"/>
+
+            </StackPanel>
+
+            <ContentControl Grid.Row="1" Grid.Column="1"
+                            Content="{Binding CurrentView}"/>
+        </Grid>
+    </Border>
+</Window>
+
+
+
